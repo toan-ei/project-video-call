@@ -1,0 +1,15 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /video-call
+
+spring:
+  datasource:
+    url: "jdbc:mysql://localhost:3306/application_video_call"
+    username: root
+    password: 1234
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
