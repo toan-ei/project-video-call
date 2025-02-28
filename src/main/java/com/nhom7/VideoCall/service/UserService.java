@@ -6,6 +6,8 @@ import com.nhom7.VideoCall.dto.response.UserResponse;
 import com.nhom7.VideoCall.entity.User;
 import com.nhom7.VideoCall.enums.UserRole;
 import com.nhom7.VideoCall.enums.UserStatus;
+import com.nhom7.VideoCall.exception.ApplicationException;
+import com.nhom7.VideoCall.exception.ErrorCode;
 import com.nhom7.VideoCall.mapper.UserMapper;
 import com.nhom7.VideoCall.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +28,8 @@ public class UserService {
     private PasswordEncoder passwordEncoder;
 
     public UserResponse createUser(UserCreateRequest request){
-        if(userRepository.existsByUsername(request.getUsername())) throw new RuntimeException("Username already exists");
+        if(userRepository.existsByUsername(request.getUsername()))
+            throw new ApplicationException(ErrorCode.USERNAME_DA_TON_TAI);
         User user = userMapper.toUser(request);
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         Set<String> roles = new HashSet<>();
@@ -42,11 +45,11 @@ public class UserService {
     }
 
     public UserResponse getUser(String userId){
-        return userMapper.toUserResponse(userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found")));
+        return userMapper.toUserResponse(userRepository.findById(userId).orElseThrow(() -> new ApplicationException(ErrorCode.KHONG_TIM_THAY_USER)));
     }
 
     public UserResponse updateUser(String userId, UserUpdateRequest request){
-        User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
+        User user = userRepository.findById(userId).orElseThrow(() -> new ApplicationException(ErrorCode.KHONG_TIM_THAY_USER));
 
         userMapper.updateUser(user, request);
 

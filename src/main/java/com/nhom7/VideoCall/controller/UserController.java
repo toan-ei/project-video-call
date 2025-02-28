@@ -5,6 +5,7 @@ import com.nhom7.VideoCall.dto.request.UserUpdateRequest;
 import com.nhom7.VideoCall.dto.response.ApiResponse;
 import com.nhom7.VideoCall.dto.response.UserResponse;
 import com.nhom7.VideoCall.service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,7 +18,7 @@ public class UserController {
     private UserService userService;
 
     @PostMapping
-    ApiResponse<UserResponse> createUser(@RequestBody UserCreateRequest request){
+    ApiResponse<UserResponse> createUser(@RequestBody @Valid UserCreateRequest request){
         return ApiResponse.<UserResponse>builder()
                 .result(userService.createUser(request))
                 .build();
