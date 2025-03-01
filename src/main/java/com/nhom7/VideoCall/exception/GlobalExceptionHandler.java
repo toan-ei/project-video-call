@@ -6,15 +6,14 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
     @ExceptionHandler(value = Exception.class)
-    ResponseEntity<ApiResponse> handlingRuntimeException(RuntimeException runtimeException){
-        System.out.println(">>> bat loi ngoai le khong mong muon " + runtimeException.getClass().getName());
-        runtimeException.printStackTrace();
+    ResponseEntity<ApiResponse> handleGenericException(Exception exception){
+        System.out.println(">>> bat loi ngoai le khong mong muon " + exception.getClass().getName());
+        exception.printStackTrace();
         ApiResponse apiResponse = new ApiResponse();
         apiResponse.setMessage(ErrorCode.EXCEPTION_CHUA_BAT.getMessage());
         apiResponse.setCode(ErrorCode.EXCEPTION_CHUA_BAT.getCode());
@@ -22,7 +21,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(value = ApplicationException.class)
-    ResponseEntity<ApiResponse> handlingRuntimeException(ApplicationException applicationException){
+    ResponseEntity<ApiResponse> handleApplicationException(ApplicationException applicationException){
         ErrorCode errorCode = applicationException.getErrorCode();
         ApiResponse apiResponse = new ApiResponse();
         apiResponse.setCode(errorCode.getCode());
@@ -31,7 +30,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(value = MethodArgumentNotValidException.class)
-    ResponseEntity<ApiResponse> handlingValidation(MethodArgumentNotValidException methodArgumentNotValidException){
+    ResponseEntity<ApiResponse> handleValidationException(MethodArgumentNotValidException methodArgumentNotValidException){
         System.out.println(">>> Bắt lỗi validation!");
 
         methodArgumentNotValidException.getFieldErrors().forEach(error -> {

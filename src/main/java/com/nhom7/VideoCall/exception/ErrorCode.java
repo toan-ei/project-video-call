@@ -11,6 +11,8 @@ public enum ErrorCode {
     DE_TRONG_FULLNAME(2003, "Họ và tên không được để trống"),
     DE_TRONG_PASSWORD(2002, "Mật khẩu không được để trống"),
     DE_TRONG_USERNAME(2001, "username không được để trống"),
+    CANNOT_CREATE_TOKEN(1005, "không thể tạo token"),
+    UNAUTHENTICATED(1004, "xác thực thất bại"),
     INVALID_KEY(1003, "từ khóa rạng buộc dữ liệu không hợp lệ"),
     KHONG_TIM_THAY_USER(1002, "không tìm thấy user"),
     USERNAME_DA_TON_TAI(1001, "username đã tồn tại"),

@@ -6,11 +6,14 @@ import com.nhom7.VideoCall.dto.response.ApiResponse;
 import com.nhom7.VideoCall.dto.response.UserResponse;
 import com.nhom7.VideoCall.service.UserService;
 import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Slf4j
 @RestController
 @RequestMapping("/users")
 public class UserController {
@@ -26,6 +29,9 @@ public class UserController {
 
     @GetMapping
     ApiResponse<List<UserResponse>> getusers(){
+        var authentication = SecurityContextHolder.getContext().getAuthentication();
+        log.info("username: {}", authentication.getName());
+        authentication.getAuthorities().forEach(role -> log.info(role.getAuthority()));
         return ApiResponse.<List<UserResponse>>builder()
                 .result(userService.getUsers())
                 .build();
