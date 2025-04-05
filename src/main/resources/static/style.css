@@ -1,0 +1,256 @@
+/* General body styles */
+body {
+    font-family: "Roboto", sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(120deg, #0f2027, #203a43, #2c5364); /* Màu gradient tương lai */
+    color: #e0e0e0;
+    overflow-x: hidden;
+}
+
+.jwt{
+    display: flex;
+    justify-content: right;
+}
+
+/* Login and Register icons */
+.information, .login-icon, #logout-icon button {
+    display: inline-block;
+    margin: 10px;
+    cursor: pointer;
+    background: #00bcd4; /* Xanh tương lai */
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 12px;
+    transition: background 0.3s ease-in-out;
+}
+
+
+.login-icon:hover, #logout-icon button:hover {
+    background: #0099a1; /* Màu chuyển đổi khi hover */
+}
+
+/* Overlay background */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(15, 32, 39, 0.9); /* Nền tối trong suốt */
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+}
+
+/* Forms inside overlay */
+#login, #register {
+    background: #1f2937; /* Tông màu tối hiện đại */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.4);
+    width: 400px;
+    max-width: 90%;
+}
+
+#login h2, #register h2 {
+    margin-bottom: 20px;
+    color: #00e6ff; /* Xanh neon hiện đại */
+}
+
+.form-item {
+    margin-bottom: 15px;
+}
+
+.input-wrapper input {
+    width: 95%;
+    padding: 10px;
+    border: 1px solid #0099a1;
+    border-radius: 4px;
+    background-color: #0f2027;
+    color: #e0e0e0;
+    margin-top: 5px;
+}
+
+#submit, #register-submit {
+    width: 100%;
+    background-color: #00bcd4;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 10px;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+}
+
+#submit:hover, #register-submit:hover {
+    background-color: #0099a1;
+}
+
+.form-switch{
+    margin-top: 20px;
+}
+
+.form-switch a{
+    color: #00e6ff;
+}
+
+.formCall {
+    display: flex;
+    justify-content: center;
+    z-index: 10;
+}
+
+/* Call section */
+.formReceiveCall {
+    position: fixed;
+    display: flex;
+    width: 30%;
+    align-items: center;
+    background: #1f2937;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+    margin: 20px 0;
+}
+
+.formReceiveCall img.avata {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.formReceiveCall h3 {
+    flex: 1;
+    font-size: 18px;
+    margin: 0;
+}
+
+/* Video call section */
+#call-section {
+    display: flex;
+    justify-content: center;
+    gap: 30px; /* Khoảng cách giữa hai video */
+}
+
+#remote, #local {
+    background-color: #1f2937;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+    width: 30%;
+    box-sizing: border-box;
+}
+
+.container {
+    display: flex;
+    justify-content: space-around;
+}
+
+video {
+    max-width: 100%;
+    width: 500px;
+    height: auto;
+    aspect-ratio: 16/9; /* Tỷ lệ chuẩn hình chữ nhật */
+    border-radius: 8px;
+    border: 2px solid #00bcd4;
+    display: block;
+    object-fit: cover;
+    
+}
+
+.video h3 {
+    text-align: center;
+    color: #21dff8;
+}
+
+.call{
+    display: flex;
+}
+
+/* Make call button */
+button#make-call {
+    background: linear-gradient(45deg, #00bcd4, #0078d4);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background 0.3s ease-in-out;
+}
+
+button#make-call:hover {
+    background: linear-gradient(45deg, #0099a1, #005ba1);
+}
+
+/* Username input */
+#inputUsername {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #0099a1;
+    border-radius: 4px;
+    background-color: #0f2027;
+    color: #e0e0e0;
+    margin-top: 10px;
+    box-sizing: border-box;
+}
+
+/* Overlay toàn màn hình khi mở myinfor */
+#myinfor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Nền mờ */
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+
+/* Nội dung hộp thông tin */
+.myinfor-content {
+    background: linear-gradient(120deg, #0f2027, #203a43, #2c5364);
+    padding: 20px;
+    border-radius: 10px;
+    width: 350px;
+    text-align: center;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    position: relative;
+}
+
+/* Ảnh đại diện */
+#avatar-myinfor {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 10px;
+}
+
+/* Nút đóng */
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+/* Nút mở */
+#showMyInfor {
+    padding: 10px 15px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    background: blue;
+    color: white;
+    border-radius: 5px;
+    margin: 20px;
+}
+

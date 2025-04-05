@@ -1,0 +1,27 @@
+server:
+    port: 8080
+    address: 0.0.0.0
+    ssl:
+      key-store: D:\workspace\test\VideoCall\webrtc\keystore.p12
+      key-store-password: password
+      key-store-type: PKCS12
+      key-alias: mycert
+
+spring:
+  datasource:
+    url: "jdbc:mysql://localhost:3306/application_video_call"
+    username: root
+    password: 1234
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+jwt:
+  signerKey: "c7f9e8e98035266eceb9be6d6636840b288fff97ebd90073caf880909e9a149f498660e1c4d04d7cb19b2d0442454ca6b6f3c694c996a5ef360d3f730685a833"
+
+logging:
+  level:
+    org:
+      springframework:
+        security: DEBUG

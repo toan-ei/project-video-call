@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="style.css">
+    <title>WebRTC Video Call</title>
+</head>
+<body>
+<!-- Login icon -->
+<div class="jwt">
+    <div class="information" style="display: none;">
+        <i>👤</i>
+    </div>
+    <div class="login-icon" onclick="showLoginForm()" style="display: none;">
+        <button>login</button>
+    </div>
+    <div id="logout-icon" style="display: none;">
+        <button>log out</button>
+    </div>
+</div>
+
+<div id="myinfor">
+    <div class="myinfor-content">
+        <span class="close-btn">&times;</span>
+        <img id="avatar-myinfor" src="" alt="Avatar">
+        <h2 id="username-myinfor">Username</h2>
+        <p id="fullname-myinfor">Fullname</p>
+        <p id="status-myinfor">Status: Active</p>
+    </div>
+</div>
+
+
+<!-- Login/Register overlay -->
+<div class="overlay" id="authOverlay">
+    <!-- Login form -->
+    <div id="login">
+        <span class="close-btn" onclick="hideAuthOverlay()">✖</span>
+        <h2>Đăng nhập</h2>
+        <form onsubmit="return false">
+            <div class="form-item">
+                <label>Username</label>
+                <div class="input-wrapper">
+                    <input type="text" id="username" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" data-lpignore="true"/>
+                </div>
+            </div>
+            <div class="form-item">
+                <label>Password</label>
+                <div class="input-wrapper">
+                    <input type="password" id="password" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" data-lpignore="true"/>
+                    <button type="button" id="eyeball">
+                        <div class="eye"></div>
+                    </button>
+                    <div id="beam"></div>
+                </div>
+            </div>
+            <button id="submit">Đăng nhập</button>
+            <div class="form-switch">
+                Chưa có tài khoản? <a onclick="switchToRegister()">Đăng ký ngay</a>
+            </div>
+        </form>
+    </div>
+
+    <!-- Register form -->
+    <div id="register" style="display: none;">
+        <span class="close-btn" onclick="hideAuthOverlay()">✖</span>
+        <h2>Đăng ký tài khoản</h2>
+        <form onsubmit="return false">
+            <div class="form-item">
+                <label>Username</label>
+                <div class="input-wrapper">
+                    <input type="text" id="reg-username" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" data-lpignore="true"/>
+                </div>
+            </div>
+            <div class="form-item">
+                <label>Password</label>
+                <div class="input-wrapper">
+                    <input type="password" id="reg-password" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" data-lpignore="true"/>
+                </div>
+            </div>
+            <div class="form-item">
+                <label>Confirm Password</label>
+                <div class="input-wrapper">
+                    <input type="password" id="reg-confirm-password" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" data-lpignore="true"/>
+                </div>
+            </div>
+            <div class="form-item">
+                <label>Full Name</label>
+                <div class="input-wrapper">
+                    <input type="text" id="reg-full-name" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" data-lpignore="true"/>
+                </div>
+            </div>
+            <button id="register-submit">Đăng ký</button>
+            <div class="form-switch">
+                Đã có tài khoản? <a onclick="switchToLogin()">Đăng nhập</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="formCall" >
+    <div class="formReceiveCall" style="display: none;">
+        <img class="avata" src="" alt="">
+        <h3 class="fullname"></h3>
+        <div>
+            <button id="accept">accept</button>
+            <button id="refuse">refuse</button>
+        </div>
+    </div>
+</div>
+
+<h1>WebRTC Video Call</h1>
+<div class="container">
+    <div class="video">
+        <h3>Local video</h3>
+        <video id="localVideo" autoplay playsinline></video>
+    </div>
+    <div class="video">
+        <h3>Remote video</h3>
+        <video id="remoteVideo" autoplay playsinline></video>
+    </div>
+</div>
+<div class="call">
+    <button id="make-call" onclick="makeCall()">Make Call</button>
+    <input id="inputUsername" type="text" placeholder="Enter your username">
+</div>
+
+<script>
+    // Function to show the auth overlay with login form
+    function showLoginForm() {
+        const overlay = document.getElementById('authOverlay');
+        const loginForm = document.getElementById('login');
+        const registerForm = document.getElementById('register');
+
+        // Show overlay
+        overlay.style.display = 'flex';
+        setTimeout(() => {
+            overlay.classList.add('active');
+        }, 10);
+
+        // Show login form, hide register form
+        loginForm.style.display = 'block';
+        registerForm.style.display = 'none';
+
+        // Add active class with slight delay for animation
+        setTimeout(() => {
+            loginForm.classList.add('active');
+        }, 100);
+    }
+
+    // Function to switch to register form
+    function switchToRegister() {
+        const loginForm = document.getElementById('login');
+        const registerForm = document.getElementById('register');
+
+        // Fade out login form
+        loginForm.classList.remove('active');
+
+        // After login fades out, show register
+        setTimeout(() => {
+            loginForm.style.display = 'none';
+            registerForm.style.display = 'block';
+
+            // Add slight delay before fading in register form
+            setTimeout(() => {
+                registerForm.classList.add('active');
+            }, 50);
+        }, 300);
+    }
+
+    // Function to switch to login form
+    function switchToLogin() {
+        const loginForm = document.getElementById('login');
+        const registerForm = document.getElementById('register');
+
+        // Fade out register form
+        registerForm.classList.remove('active');
+
+        // After register fades out, show login
+        setTimeout(() => {
+            registerForm.style.display = 'none';
+            loginForm.style.display = 'block';
+
+            // Add slight delay before fading in login form
+            setTimeout(() => {
+                loginForm.classList.add('active');
+            }, 50);
+        }, 300);
+    }
+
+    // Function to hide the auth overlay
+    function hideAuthOverlay() {
+        const overlay = document.getElementById('authOverlay');
+        const loginForm = document.getElementById('login');
+        const registerForm = document.getElementById('register');
+
+        // Remove active classes to trigger fade out
+        overlay.classList.remove('active');
+        loginForm.classList.remove('active');
+        registerForm.classList.remove('active');
+
+        // Hide overlay after fade out animation completes
+        setTimeout(() => {
+            overlay.style.display = 'none';
+        }, 300);
+    }
+</script>
+</body>
+</html>
